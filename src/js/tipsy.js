@@ -36,7 +36,7 @@ class Tipsy {
     static bindSelector(selector, options, node) {
         node = node || document;
 
-        var elements = node.querySelectorAll(selector);
+        let elements = node.querySelectorAll(selector);
         [].forEach.call(elements, function(element) {
             Tipsy.bind(element, options);
         });
@@ -48,7 +48,7 @@ class Tipsy {
 
         tipsyObserver = new MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
-                var addedNodes = mutation.addedNodes;
+                let addedNodes = mutation.addedNodes;
                 if (addedNodes && addedNodes.length) {
                     [].forEach.call(addedNodes, function (node) {
                         if (node.matches(selector)) {
@@ -56,7 +56,7 @@ class Tipsy {
                             return;
                         }
 
-                        var elements = node.querySelectorAll(selector);
+                        let elements = node.querySelectorAll(selector);
                         [].forEach.call(elements, function (element) {
                             Tipsy.bind(element, options);
                         });
@@ -68,13 +68,13 @@ class Tipsy {
     }
 
     static autoNS() {
-        var offset = Utils.offset(this);
+        let offset = Utils.offset(this);
 
         return offset.top > (document.body.scrollTop + window.innerHeight / 2) ? 's' : 'n';
     }
 
     static autoWE() {
-        var offset = Utils.offset(this);
+        let offset = Utils.offset(this);
 
         return offset.left > (document.body.scrollLeft + window.innerWidth / 2) ? 's' : 'n';
     }
@@ -89,13 +89,13 @@ class Tipsy {
     }
 
     show() {
-        var title = this.getTitle();
+        let title = this.getTitle();
 
         if (!title || !this.enabled) return;
 
-        var gravity = Utils.callOrReturn(this.options.gravity, this.element);
-        var tip = this.getTip();
-        var tipArrow = tip.querySelector('.tipsy-arrow');
+        let gravity = Utils.callOrReturn(this.options.gravity, this.element);
+        let tip = this.getTip();
+        let tipArrow = tip.querySelector('.tipsy-arrow');
 
         tip.querySelector('.tipsy-inner')[this.options.html ? 'innerHTML' : 'textContent'] = title;
         this.resetTip();
@@ -114,7 +114,7 @@ class Tipsy {
     }
 
     hide() {
-        var tip = this.getTip();
+        let tip = this.getTip();
 
         if (this.options.fade) {
             tip.addEventListener('transitionend', this.onTransitionEnd);
@@ -140,8 +140,8 @@ class Tipsy {
         this.onTransitionEnd = this.onTransitionEnd.bind(this);
 
         if (this.options.trigger != 'manual') {
-            var eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus';
-            var eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur';
+            let eventIn  = this.options.trigger == 'hover' ? 'mouseenter' : 'focus';
+            let eventOut = this.options.trigger == 'hover' ? 'mouseleave' : 'blur';
 
             this.element.addEventListener(eventIn, this.onEnter);
             this.element.addEventListener(eventOut, this.onLeave);
@@ -149,7 +149,7 @@ class Tipsy {
     }
 
     onEnter() {
-        var self = this;
+        let self = this;
 
         this.hoverState = 'in';
         if (this.options.delayIn == 0) {
@@ -164,7 +164,7 @@ class Tipsy {
     }
 
     onLeave() {
-        var self = this;
+        let self = this;
 
         this.hoverState = 'out';
         if (this.options.delayOut == 0) {
@@ -184,13 +184,13 @@ class Tipsy {
     }
 
     calculateTipPosition(tip, gravity) {
-        var actualWidth = tip.offsetWidth;
-        var actualHeight = tip.offsetHeight;
-        var pos = Utils.extend({}, Utils.offset(this.element), {
+        let actualWidth = tip.offsetWidth;
+        let actualHeight = tip.offsetHeight;
+        let pos = Utils.extend({}, Utils.offset(this.element), {
             height: this.element.offsetHeight,
             width: this.element.offsetWidth
         });
-        var tipPos;
+        let tipPos;
 
         switch (gravity.charAt(0)) {
             case 'n':
@@ -222,8 +222,8 @@ class Tipsy {
     }
 
     getTitle() {
-        var title;
-        var options = this.options;
+        let title;
+        let options = this.options;
 
         this.fixTitle();
 
@@ -264,8 +264,8 @@ class Tipsy {
     }
 
     fixTitle() {
-        var title = this.element.getAttribute('title');
-        var originalTitle = this.element.getAttribute('original-title');
+        let title = this.element.getAttribute('title');
+        let originalTitle = this.element.getAttribute('original-title');
 
         if (title || typeof(originalTitle) != 'string') {
             this.element.setAttribute('original-title', title || '');

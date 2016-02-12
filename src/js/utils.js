@@ -27,7 +27,7 @@ export function callOrReturn(value, ctx) {
  * @param css
  */
 export function css(element, css) {
-    for (var prop in css) {
+    for (let prop in css) {
         if (pixelProperties.indexOf(prop) >= 0 && css[prop] != 0) {
             css[prop] = css[prop] + 'px';
         }
@@ -42,8 +42,8 @@ export function css(element, css) {
  * @returns {*}
  */
 export function extend() {
-    for (var i = 1; i < arguments.length; i++) {
-        for (var key in arguments[i]) {
+    for (let i = 1; i < arguments.length; i++) {
+        for (let key in arguments[i]) {
             if (arguments[i].hasOwnProperty(key)) {
                 arguments[0][key] = arguments[i][key];
             }
@@ -60,7 +60,7 @@ export function extend() {
  * @returns {{top: number, left: number}}
  */
 export function offset(element) {
-    var rect = element.getBoundingClientRect();
+    let rect = element.getBoundingClientRect();
 
     return {
         top: rect.top + document.body.scrollTop,
