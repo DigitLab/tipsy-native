@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <link href="dist/css/tipsy.css" rel="stylesheet" />
+        <style>
+            body {
+                font-family: "Helvetica Neue";
+                font-size: 14px;
+                padding: 20px;
+            }
+        </style>
+        <script src="dist/js/tipsy.js"></script>
+    </head>
+    <body>
+        <a rel="tipsy" title="Blah ( [ )">This is a link and stuff</a>
+        <div id="content"></div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                Tipsy.bindSelector('a[rel=tipsy]');
+                Tipsy.watchSelector('a[rel=tipsy]', {gravity: 'w'}, document.querySelector('#content'));
+
+                setTimeout(function () {
+                    var a = document.createElement('a');
+                    a.setAttribute('rel', 'tipsy');
+                    a.setAttribute('title', 'Dynamically added');
+                    a.textContent = 'Dynamically Added';
+
+                    document.querySelector('#content').appendChild(a);
+                }, 1000);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tipsy Native</title>
+        <link href="css/reset.css" rel="stylesheet"/>
+        <link href="css/docs.css" rel="stylesheet"/>
+        <link href="css/googlecode.min.css" rel="stylesheet"/>
+        <script src="js/highlight.min.js"></script>
+        <script src="js/docs-code.js"></script>
+        <link href="dist/css/tipsy.css" rel="stylesheet" />
+        <script src="dist/js/tipsy.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                Tipsy.bindSelector('#originalTipsy');
+
+                // Basic example
+                Tipsy.bind(document.querySelector('#example-1'));
+
+                // Gravity example
+                Tipsy.bind(document.querySelector('#north'), {gravity: 'n'});
+                Tipsy.bind(document.querySelector('#south'), {gravity: 's'});
+                Tipsy.bind(document.querySelector('#east'), {gravity: 'e'});
+                Tipsy.bind(document.querySelector('#west'), {gravity: 'w'});
+                Tipsy.bind(document.querySelector('#northWest'), {gravity: 'nw'});
+                Tipsy.bind(document.querySelector('#northEast'), {gravity: 'ne'});
+                Tipsy.bind(document.querySelector('#southWest'), {gravity: 'sw'});
+                Tipsy.bind(document.querySelector('#southEast'), {gravity: 'se'});
+                Tipsy.bind(document.querySelector('#dynamicGravity'), {gravity: Tipsy.autoNS});
+
+                // Fade example
+                Tipsy.bind(document.querySelector('#exampleFade'), {fade: true});
+
+                // Title example
+                Tipsy.bind(document.querySelector('#exampleCustomAttribute'), {title: 'id'});
+
+                // Title callback example
+                Tipsy.bind(document.querySelector('#exampleTitleCallback'), {title: function() { return this.getAttribute('original-title').toUpperCase(); }});
+
+                // HTML example
+                Tipsy.bind(document.querySelector('#exampleFallback'), {fallback: 'No tooltip here!'});
+
+                // HTML example
+                Tipsy.bind(document.querySelector('#exampleHTML'), {html: true});
+
+                // Delay example
+                Tipsy.bind(document.querySelector('#exampleDelay'), {delayIn: 500, delayOut: 1000});
+
+                // Dynamic text example
+                Tipsy.bind(document.querySelector('#exampleDynamicText'));
+                document.querySelector('#dynamicButton').addEventListener('click', function() {
+                    document.querySelector('#exampleDynamicText')
+                            .setAttribute('title', document.querySelector('#dynamicInput').value);
+                });
+
+                // Focus example
+                Tipsy.bindSelector('#exampleFocus > *', {trigger: 'focus', gravity: 'w'});
+
+                // Manual example
+                Tipsy.bind(document.querySelector('#exampleManual'), {trigger: 'manual'});
+
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Tipsy Native</h1>
+
+        <h2>Overview</h2>
+        <p>
+            Tipsy Native is a javascript library for creating a Facebook-like tooltips effect based on an anchor tag's
+            title attribute.
+        </p>
+        <p>
+            This is almost a direct port to native javascript of
+            <a id="originalTipsy" href="http://onehackoranother.com/projects/jquery/tipsy" title="Original Tipsy">tipsy</a> by Jason Frame.
+        </p>
+
+        <h2>Examples and Usage</h2>
+
+        <h3>Basic</h3>
+        <p>
+            By default, tooltips will appear centred underneath their anchor:
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="example-1" href="#" title="Hello World">Hover over me</a>
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#example-1')); // Create for element
+            Tipsy.bindSelector('#example-1');                 // Create for selector
+            Tipsy.watchSelector('a[rel=tipsy]');              // Watch for selector to be added
+        </div>
+
+        <h3>Gravities</h3>
+        <p>
+            Using the gravity parameter, it's possible to control the positioning of the tooltip relative to the pointee.
+        </p>
+        <p>
+            It is possible to use a callback function to set the gravity dynamically at hover-time. Within the callback,
+            <strong>this</strong> refers to the active element. Two methods are provided, <strong>Tipsy.autoNS</strong>
+            and <strong>Tipsy.autoWE</strong>, which select north/south and west/east gravity respectively.
+        </p>
+        <h4>Example</h4>
+        <table id='gravity' cellspacing='5'>
+            <tr>
+                <td>
+                    <a id='northWest' href='#' title='This is an example of north-west gravity'>Northwest</a>
+                </td>
+                <td>
+                    <a id='north' href='#' title='This is an example of north gravity'>North</a>
+                </td>
+                <td>
+                    <a id='northEast' href='#' title='This is an example of north-east gravity'>Northeast</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a id='west' href='#' title='This is an example of west gravity'>West</a>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <a id='east' href='#' title='This is an example of east gravity'>East</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a id='southWest' href='#' title='This is an example of south-west gravity'>Southwest</a>
+                </td>
+                <td>
+                    <a id='south' href='#' title='This is an example of south gravity'>South</a>
+                </td>
+                <td>
+                    <a id='southEast' href='#' title='This is an example of south-east gravity'>Southeast</a>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <a id="dynamicGravity" href="#" title="Hello World">Dynamic Gravity</a>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {gravity: 'n'});
+            // nw | n | ne | w | e | sw | s | se
+        </div>
+
+        <h3>Fading</h3>
+        <p>
+            You can fade the tooltips in using the fade option.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleFade" href="#" title="Hello World">Hover over me</a>
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {fade: true});
+        </div>
+
+        <h3>Title</h3>
+        <p>
+            Tooltip text can be based on any attribute, not just title.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleCustomAttribute" href="#">Hover over me</a>
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {title: 'id'});
+        </div>
+
+        <h3>Title Callback</h3>
+        <p>
+            Tooltip title option can also be a callback returning the tooltip text. The <strong>this</strong> the
+            active element.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleTitleCallback" href="#" title="Hello World">Hover over me</a>
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {title: function() {
+                return this.getAttribute('original-title').toUpperCase();
+            }});
+        </div>
+
+        <h3>Fallback</h3>
+        <p>
+            If no title can be found, a fallback can be used.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleFallback" href="#" >Hover over me</a>
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {fallback: 'No tooltip here!'});
+        </div>
+
+        <h3>HTML</h3>
+        <p>
+            The tooltip can contain html.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleHTML" href="#" title="Hello <strong>World</strong>">Hover over me</a>
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {html: true});
+        </div>
+
+        <h3>Delay</h3>
+        <p>
+            The tooltip can have a show and hide delay.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleDelay" href="#" title="Hello World">Hover over me</a>
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {delayIn: 500, delayOut: 1000});
+        </div>
+
+        <h3>Dynamically Updating Text</h3>
+        <p>
+            The tooltip will dynamically update its text each time it is shown. <strong>Note:</strong> if you wish to
+            set the <strong>title</strong> to an empty string, set the <strong>original-title</strong> attribute instead.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleDynamicText" href='#' rel='tipsy' title=''>Hover over me</a> |
+            New tooltip text:
+            <input id="dynamicInput" type='text' value='' size='10' />
+            <input id="dynamicButton" type='button' value='Update' />
+        </p>
+
+        <h3>Focus Trigger</h3>
+        <p>
+            Tooltips can be bound to a form inputs focus/blur events.
+        </p>
+        <h4>Example</h4>
+        <p id="exampleFocus">
+            <input type='text' name='forename' title='Enter forename' /><br />
+            <input type='text' name='surname' title='Enter surname' />
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {trigger: 'focus'});
+        </div>
+
+        <h3>Manual Trigger</h3>
+        <p>
+            Tooltips can be manually triggered.
+        </p>
+        <h4>Example</h4>
+        <p>
+            <a id="exampleManual" title="Hello World">Manually triggered tooltip</a>
+            <input type='button' value='Show' onclick="document.querySelector('#exampleManual').tipsy.show()" />
+            <input type='button' value='Hide' onclick="document.querySelector('#exampleManual').tipsy.hide()" />
+        </p>
+        <h4>Code</h4>
+        <div class='code' lang="js">
+            Tipsy.bind(document.querySelector('#foo'), {trigger: 'manual'});
+
+            //document.querySelector('#foo').tipsy.show();
+            //document.querySelector('#foo').tipsy.hide();
+        </div>
+
+        <h3>Configuration Options</h3>
+        <div class='code' lang="js">
+            defaults = {
+                delayIn: 0,      // delay before showing tooltip (ms)
+                delayOut: 0,     // delay before hiding tooltip (ms)
+                fade: false,     // fade tooltips in/out?
+                fallback: '',    // fallback text to use when no tooltip text
+                gravity: 'n',    // gravity
+                html: false,     // is tooltip content HTML?
+                offset: 0,       // pixel offset of tooltip from element
+                opacity: 0.8,    // opacity of tooltip
+                title: 'title',  // attribute/callback containing tooltip text
+                trigger: 'hover' // how tooltip is triggered - hover | focus | manual
+            }
+        </div>
+
+        <h3>Download</h3>
+        <div class='code' lang="bash">
+            $ git clone git://github.com/DigitLab/tipsy-native.git
+        </div>
+    </body>
+</html>
