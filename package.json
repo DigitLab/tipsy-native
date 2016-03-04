@@ -1,10 +1,17 @@
 {
-    "private": true,
-    "devDependencies": {
-        "gulp": "^3.8.8"
+    "name": "tipsy-native",
+    "description": "Tipsy Native is a javascript library for creating a Facebook-like tooltips effect based on an anchor tag's title attribute.",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/DigitLab/tipsy-native.git"
     },
-    "dependencies": {
-        "laravel-elixir": "^4.0.0",
-        "bootstrap-sass": "^3.0.0"
+    "scripts": {
+    },
+    "main": "dist/js/tipsy.js",
+    "dependencies": {},
+    "devDependencies": {
+        "gulp": "^3.8.8",
+        "laravel-elixir": "^4.0.0"
     }
 }
