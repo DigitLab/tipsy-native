@@ -1,4 +1,8 @@
-# tipsy native
+# Tipsy Native
+
+[![Downloads](https://img.shields.io/github/downloads/digitlab/tipsy-native/latest/total.svg)](https://github.com/digitlab/tipsy-native)
+[![Latest Release](https://img.shields.io/github/release/digitlab/tipsy-native.svg)](https://github.com/digitlab/tipsy-native)
+[![License](https://img.shields.io/github/license/digitlab/tipsy-native.svg)](https://github.com/digitlab/tipsy-native)
 
 Facebook-style tooltip javascript library.
 
@@ -34,3 +38,7 @@ http://digitlab.github.io/tipsy-native
         </script>
 
 Please refer to the docs directory for more examples and documentation.
+
+## License
+
+Tipsy Native is licensed under [The MIT License (MIT)](LICENSE).
