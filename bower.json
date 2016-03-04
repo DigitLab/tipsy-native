@@ -1,0 +1,24 @@
+{
+  "name": "tipsy-native",
+  "description": "Tipsy Native is a javascript library for creating a Facebook-like tooltips effect based on an anchor tag's title attribute.",
+  "main": "dist/js/tipsy.js",
+  "authors": [
+    "Nicholas Wiersma <nick@digitlab.co.za>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "tipsy",
+    "native"
+  ],
+  "homepage": "https://github.com/DigitLab/tipsy-native",
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
