@@ -51,7 +51,7 @@ class Tipsy {
                 let addedNodes = mutation.addedNodes;
                 if (addedNodes && addedNodes.length) {
                     [].forEach.call(addedNodes, function (node) {
-                        if (!n.matches) return;
+                        if (!node.matches) return;
 
                         if (node.matches(selector)) {
                             Tipsy.bind(node, options);
