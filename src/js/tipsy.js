@@ -107,7 +107,12 @@ class Tipsy {
         tip.classList.add('tipsy-' + gravity);
         tipArrow.className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
         if (this.options.className) {
-            let classes = this.options.className.split(' ');
+            let className = this.options.className;
+            if (typeof className === 'function') {
+                className = className();
+            }
+
+            let classes = className.split(' ');
             for (let i = 0; i < classes.length; i++) {
                 tip.classList.add(Utils.callOrReturn(classes[i], this.element));
             }
