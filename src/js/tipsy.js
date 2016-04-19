@@ -104,14 +104,16 @@ class Tipsy {
 
         document.body.appendChild(tip);
 
-        Utils.css(tip, this.calculateTipPosition(tip, gravity));
-
         tip.classList.add('tipsy-' + gravity);
         tipArrow.className = 'tipsy-arrow tipsy-arrow-' + gravity.charAt(0);
         if (this.options.className) {
-            tip.classList.add(Utils.callOrReturn(this.options.className, this.element));
+            let classes = this.options.className.split(' ');
+            for (let i = 0; i < classes.length; i++) {
+                tip.classList.add(Utils.callOrReturn(classes[i], this.element));
+            }
         }
 
+        Utils.css(tip, this.calculateTipPosition(tip, gravity));
         Utils.css(tip, {visibility: 'visible', opacity: this.options.opacity});
     }
 
